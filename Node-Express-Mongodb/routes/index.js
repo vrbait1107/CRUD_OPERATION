@@ -3,15 +3,20 @@ var router = express.Router();
 const Employee = require("../Model/Employee");
 const { request } = require("express");
 
-/* GET home page. */
+//----------------------->> HOME PAGE
+
 router.get("/", function (req, res, next) {
   Employee.find({}, function (err, data) {
     if (err) throw err;
-    res.render("index", { title: "EMPLOYEE RECORDS", records: data });
+    res.render("index", {
+      title: "EMPLOYEE RECORDS",
+      records: data,
+      success: "",
+    });
   });
 });
 
-// ----------------------->> FORM REQUEST
+// ----------------------->> SHOW RECORDS
 
 router.post("/", function (req, res, next) {
   employee = new Employee();
@@ -26,12 +31,16 @@ router.post("/", function (req, res, next) {
     if (err) throw err;
     Employee.find({}, function (err, data) {
       if (err) throw err;
-      res.render("index", { title: "EMPLOYEE RECORDS", records: data });
+      res.render("index", {
+        title: "EMPLOYEE RECORDS",
+        records: data,
+        success: "Record Inserted Successfully",
+      });
     });
   });
 });
 
-// ----------------------->> FILTER REQUEST
+// ----------------------->> FILTER RECORDS
 
 router.post("/search/", function (req, res, next) {
   let filterEmail = req.body.filterEmail;
@@ -53,7 +62,11 @@ router.post("/search/", function (req, res, next) {
 
   query.exec(function (err, data) {
     if (err) throw err;
-    res.render("index", { title: "EMPLOYEE RECORDS", records: data });
+    res.render("index", {
+      title: "EMPLOYEE RECORDS",
+      records: data,
+      success: "",
+    });
   });
 });
 
@@ -64,7 +77,14 @@ router.get("/delete/:id", function (req, res, next) {
 
   Employee.findByIdAndDelete(id, function (err, data) {
     if (err) throw err;
-    res.redirect("/");
+    Employee.find({}, function (err, data) {
+      if (err) throw err;
+      res.render("index", {
+        title: "EMPLOYEE RECORDS",
+        records: data,
+        success: "Successfully Record Deleted",
+      });
+    });
   });
 });
 
@@ -93,7 +113,14 @@ router.post("/update/", function (req, res, next) {
     id,
     { name, email, etype, hourlyRate, totalHour, total },
     function (err, data) {
-      res.redirect("/");
+      Employee.find({}, function (err, data) {
+        if (err) throw err;
+        res.render("index", {
+          title: "EMPLOYEE RECORDS",
+          records: data,
+          success: "Record Successfully Updated",
+        });
+      });
     }
   );
 });

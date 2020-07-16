@@ -15,6 +15,12 @@
 
   <main class="container mt-5">
 
+    <% if(success !== "") { %>
+    <div class="alert alert-success">
+      <strong>Success!</strong><%= success %>
+    </div>
+    <% } %>
+
     <form action="/search/" method="POST">
 
       <div class="row">
