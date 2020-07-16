@@ -68,4 +68,34 @@ router.get("/delete/:id", function (req, res, next) {
   });
 });
 
+// ------------------------->> EDIT REQUEST
+
+router.get("/edit/:id", function (req, res, next) {
+  const id = req.params.id;
+
+  Employee.findById(id, function (err, data) {
+    res.render("edit", { title: "Edit Employee Records", editData: data });
+  });
+});
+
+// ------------------------->> UPDATE RECORDS
+
+router.post("/update/", function (req, res, next) {
+  let id = req.body.id;
+  let name = req.body.name;
+  let email = req.body.email;
+  let etype = req.body.etype;
+  let hourlyRate = req.body.hourlyRate;
+  let totalHour = req.body.totalHour;
+  let total = parseInt(req.body.totalHour) * parseInt(req.body.hourlyRate);
+
+  Employee.findByIdAndUpdate(
+    id,
+    { name, email, etype, hourlyRate, totalHour, total },
+    function (err, data) {
+      res.redirect("/");
+    }
+  );
+});
+
 module.exports = router;
