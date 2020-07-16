@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const Employee = require("../Model/Employee");
+const { request } = require("express");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -10,7 +11,8 @@ router.get("/", function (req, res, next) {
   });
 });
 
-// Form  Request
+// ----------------------->> FORM REQUEST
+
 router.post("/", function (req, res, next) {
   employee = new Employee();
   employee.name = req.body.name;
@@ -29,7 +31,7 @@ router.post("/", function (req, res, next) {
   });
 });
 
-// Filter Request
+// ----------------------->> FILTER REQUEST
 
 router.post("/search/", function (req, res, next) {
   let filterEmail = req.body.filterEmail;
@@ -52,6 +54,17 @@ router.post("/search/", function (req, res, next) {
   query.exec(function (err, data) {
     if (err) throw err;
     res.render("index", { title: "EMPLOYEE RECORDS", records: data });
+  });
+});
+
+// ------------------------->> DELETE REQUEST
+
+router.get("/delete/:id", function (req, res, next) {
+  const id = req.params.id;
+
+  Employee.findByIdAndDelete(id, function (err, data) {
+    if (err) throw err;
+    res.redirect("/");
   });
 });
 

@@ -105,12 +105,14 @@
               <td><%= row.hourlyRate %></td>
               <td><%= row.totalHour %></td>
               <td><%= row.total %></td>
-              <td><a class="btn btn-primary text-white" href=""><i class="fas fa-edit"></i></a> </td>
-              <td><a class="btn btn-danger text-white" href=""><i class="fas fa-trash"></i></a> </td>
+              <td><a class="btn btn-primary text-white" href="/edit/<%= row._id %>"><i class="fas fa-edit"></i></a>
+              </td>
+              <td><a class="btn btn-danger text-white" href="/delete/<%= row._id %>"><i class="fas fa-trash"></i></a>
+              </td>
             </tr>
             <% })}else{ %>
             <tr>
-              <td colspan="6">
+              <td colspan="8">
                 No Records Found
               </td>
             </tr>
