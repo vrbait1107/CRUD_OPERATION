@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+    crossorigin="anonymous" />
+</head>
+
+<body>
+
+
+  <main class="container mt-5">
+
+    <form action="/search/" method="POST">
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="filterName">By Name</label>
+            <input type="text" name="filterName" id="filterName" class="form-control" placeholder="Enter Name">
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="filterEmail">By Email</label>
+            <input type="email" name="filterEmail" id="filterEmail" class="form-control" placeholder="Enter Email">
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-primary btn-block mt-4">Submit</button>
+        </div>
+
+      </div>
+    </form>
+
+    <div class="row">
+      <section class="col-md-6 offset-md-3">
+        <form action="/" method="post">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Enter Your Name">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Enter Your Name">
+          </div>
+
+          <div class="form-group">
+            <label for="">Employee Type</label>
+            <select name="etype" id="etype" class="form-control">
+              <option value="Supervisor">Supervisor</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="hourlyRate">Hourly Rate</label>
+            <input type="hourlyRate" name="hourlyRate" id="hourlyRate" class="form-control"
+              placeholder="Enter Your Name">
+          </div>
+
+          <div class="form-group">
+            <label for="totalHour">Total Hour</label>
+            <input type="totalHour" name="totalHour" id="totalHour" class="form-control" placeholder="Enter Your Name">
+          </div>
+
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+      </section>
+    </div>
+
+    <h3 class="text-center my-5"><%= title %></h3>
+
+    <div class="row text-center">
+      <section class="col-md-10 offset-md-1">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Employee Type</th>
+              <th>Hourly Rate</th>
+              <th>Total Hour</th>
+              <th>Total</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(records.length > 0) { %>
+            <% records.forEach(function(row){ %>
+            <tr>
+              <td><%= row.name %></td>
+              <td><%= row.email %></td>
+              <td><%= row.etype %></td>
+              <td><%= row.hourlyRate %></td>
+              <td><%= row.totalHour %></td>
+              <td><%= row.total %></td>
+              <td><a class="btn btn-primary text-white" href=""><i class="fas fa-edit"></i></a> </td>
+              <td><a class="btn btn-danger text-white" href=""><i class="fas fa-trash"></i></a> </td>
+            </tr>
+            <% })}else{ %>
+            <tr>
+              <td colspan="6">
+                No Records Found
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+  </main>
+</body>
+
+</html>
+
+<
