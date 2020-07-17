@@ -3,6 +3,7 @@ var router = express.Router();
 const Employee = require("../Model/Employee");
 const multer = require("multer");
 const path = require("path");
+const UploadImages = require("../Model/UploadImages");
 
 router.use(express.static(__dirname + "./public/"));
 
@@ -149,15 +150,32 @@ router.post("/update/", function (req, res, next) {
 //-------------------------->> GET UPLOAD FILE
 
 router.get("/upload", upload, function (req, res) {
-  res.render("upload", { title: "upload File", success: "" });
+  UploadImages.find({}, function (err, data) {
+    res.render("upload", { title: "upload File", success: "", records: data });
+  });
 });
 
 //-------------------------->> POST UPLOAD FILE
 
 router.post("/upload", upload, function (req, res) {
-  res.render("upload", {
-    title: "upload File",
-    success: "file successfully uploaded",
+  const imagesName = req.file.filename;
+
+  const uploadImages = new UploadImages();
+  uploadImages.imageName = imagesName;
+
+  uploadImages.save(function (err, data) {
+    if (err) throw err;
+
+    UploadImages.find({}, function (err1, data1) {
+      res.render("upload", {
+        title: "upload File",
+        success: "file successfully uploaded",
+        records: data1,
+      });
+    });
   });
 });
+
+//--------------------------->> SHOW IMAGES ON HTML FILE
+
 module.exports = router;

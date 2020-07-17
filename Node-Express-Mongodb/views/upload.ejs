@@ -46,6 +46,23 @@
 
             </section>
         </div>
+
+
+        <div class="row mt-5">
+
+            <% if(records.length > 0) { %>
+            <% records.forEach(function(row) { %>
+
+            <div class="col-md-3">
+                <img src="./uploads/<%= row.imageName %>" class="img-fluid w-100" alt="<%= row.imageName %>">
+            </div>
+
+            <% }) %>
+            <% } else { %>
+            <p>No Records Found</p>
+            <% } %>
+        </div>
+
     </main>
 </body>
 
