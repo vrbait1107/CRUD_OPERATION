@@ -1,7 +1,28 @@
 var express = require("express");
 var router = express.Router();
 const Employee = require("../Model/Employee");
-const { request } = require("express");
+const multer = require("multer");
+const path = require("path");
+
+router.use(express.static(__dirname + "./public/"));
+
+// ---------------------->> MULTER DISKSTORAGE
+
+const Storage = multer.diskStorage({
+  destination: "./public/uploads/",
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+// ---------------------->> MULTER MIDDLEWARE
+
+const upload = multer({
+  storage: Storage,
+}).single("file");
 
 //----------------------->> HOME PAGE
 
@@ -16,7 +37,7 @@ router.get("/", function (req, res, next) {
   });
 });
 
-// ----------------------->> SHOW RECORDS
+// ----------------------->> SHOW RECORDS DETAILS
 
 router.post("/", function (req, res, next) {
   employee = new Employee();
@@ -125,4 +146,18 @@ router.post("/update/", function (req, res, next) {
   );
 });
 
+//-------------------------->> GET UPLOAD FILE
+
+router.get("/upload", upload, function (req, res) {
+  res.render("upload", { title: "upload File", success: "" });
+});
+
+//-------------------------->> POST UPLOAD FILE
+
+router.post("/upload", upload, function (req, res) {
+  res.render("upload", {
+    title: "upload File",
+    success: "file successfully uploaded",
+  });
+});
 module.exports = router;

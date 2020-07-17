@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= title %></title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+        integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+        crossorigin="anonymous" />
+</head>
+
+<body>
+
+
+    <main class="container mt-5">
+
+        <% if(success !== "") { %>
+        <div class="alert alert-success">
+            <strong>Success!</strong> <%= success %>
+        </div>
+        <% } %>
+
+
+        <div class="row">
+            <section class="col-md-6 offset-md-3">
+
+                <form action="/upload" method="post" enctype="multipart/form-data">
+
+                    <div class="card shadow">
+                        <div class="card-header">
+                            Upload File
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="file">Upload File</label>
+                                <input type="file" class="form-control-file" name="file" id="file">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </div>
+                    </div>
+
+
+                </form>
+
+            </section>
+        </div>
+    </main>
+</body>
+
+</html>
