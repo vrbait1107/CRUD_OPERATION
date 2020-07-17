@@ -1,29 +1,6 @@
-var express = require("express");
 var router = express.Router();
+var express = require("express");
 const Employee = require("../Model/Employee");
-const multer = require("multer");
-const path = require("path");
-const UploadImages = require("../Model/UploadImages");
-
-router.use(express.static(__dirname + "./public/"));
-
-// ---------------------->> MULTER DISKSTORAGE
-
-const Storage = multer.diskStorage({
-  destination: "./public/uploads/",
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
-
-// ---------------------->> MULTER MIDDLEWARE
-
-const upload = multer({
-  storage: Storage,
-}).single("file");
 
 //----------------------->> HOME PAGE
 
@@ -146,36 +123,5 @@ router.post("/update/", function (req, res, next) {
     }
   );
 });
-
-//-------------------------->> GET UPLOAD FILE
-
-router.get("/upload", upload, function (req, res) {
-  UploadImages.find({}, function (err, data) {
-    res.render("upload", { title: "upload File", success: "", records: data });
-  });
-});
-
-//-------------------------->> POST UPLOAD FILE
-
-router.post("/upload", upload, function (req, res) {
-  const imagesName = req.file.filename;
-
-  const uploadImages = new UploadImages();
-  uploadImages.imageName = imagesName;
-
-  uploadImages.save(function (err, data) {
-    if (err) throw err;
-
-    UploadImages.find({}, function (err1, data1) {
-      res.render("upload", {
-        title: "upload File",
-        success: "file successfully uploaded",
-        records: data1,
-      });
-    });
-  });
-});
-
-//--------------------------->> SHOW IMAGES ON HTML FILE
 
 module.exports = router;
