@@ -28,6 +28,9 @@
     <div class="row">
       <section class="col-md-6 offset-md-3">
         <form action="/" method="post">
+
+
+
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text" name="name" id="name" class="form-control" placeholder="Enter Your Name">
@@ -56,6 +59,10 @@
             <input type="totalHour" name="totalHour" id="totalHour" class="form-control" placeholder="Enter Your Name">
           </div>
 
+          <div class="form-group">
+            <label for="profileImage">Profile Image</label>
+            <input type="file" class="form-control-file" name="profileImage" id="profileImage">
+          </div>
 
           <button type="submit" class="btn btn-primary">Submit</button>
 
@@ -70,6 +77,7 @@
         <table class="table table-striped" id="dataTable">
           <thead>
             <tr>
+              <th>Profile Image</th>
               <th>Name</th>
               <th>Email</th>
               <th>Employee Type</th>
@@ -84,6 +92,11 @@
             <% if(records.length > 0) { %>
             <% records.forEach(function(row){ %>
             <tr>
+              <% if(!row.profileImage){ %>
+              <td><img src="./profileImage/defaultUser.png" class="img-fluid rounded-circle" alt="Profile Image"></td>
+              <% }else { %>
+              <td><img src="./profileImage/<%= row.name %>" class="img-fluid" alt="Profile Image"></td>
+              <% } %>
               <td><%= row.name %></td>
               <td><%= row.email %></td>
               <td><%= row.etype %></td>
@@ -97,7 +110,7 @@
             </tr>
             <% })}else{ %>
             <tr>
-              <td colspan="8">
+              <td colspan="9">
                 No Records Found
               </td>
             </tr>

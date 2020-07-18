@@ -1,6 +1,24 @@
 var express = require("express");
 var router = express.Router();
 const Employee = require("../Model/Employee");
+const multer = require("multer");
+const path = require("path");
+
+router.use(express.static(__dirname + "./public/"));
+
+const Storage = multer.diskStorage({
+  destination: "./public/profileImage/",
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+const upload = multer({
+  storage: Storage,
+}).single("profileImage");
 
 //----------------------->> HOME PAGE
 
@@ -17,7 +35,7 @@ router.get("/", function (req, res, next) {
 
 //----------------------->> SHOW RECORDS DETAILS ON HOME PAGE
 
-router.post("/", function (req, res, next) {
+router.post("/", upload, function (req, res, next) {
   employee = new Employee();
   employee.name = req.body.name;
   employee.email = req.body.email;
@@ -25,6 +43,7 @@ router.post("/", function (req, res, next) {
   employee.hourlyRate = req.body.hourlyRate;
   employee.totalHour = req.body.totalHour;
   employee.total = parseInt(req.body.totalHour) * parseInt(req.body.hourlyRate);
+  employee.profileImage = req.file.filename;
 
   employee.save(function (err, data1) {
     if (err) throw err;
@@ -69,7 +88,7 @@ router.get("/edit/:id", function (req, res, next) {
 
 //----------------------->> UPDATE RECORDS
 
-router.post("/update/", function (req, res, next) {
+router.post("/update/", upload, function (req, res, next) {
   let id = req.body.id;
   let name = req.body.name;
   let email = req.body.email;
@@ -77,10 +96,15 @@ router.post("/update/", function (req, res, next) {
   let hourlyRate = req.body.hourlyRate;
   let totalHour = req.body.totalHour;
   let total = parseInt(req.body.totalHour) * parseInt(req.body.hourlyRate);
+  let profileImage = req.file.filename;
+
+  if (profileImage === "") {
+    profileImage = "defaultUser.png";
+  }
 
   Employee.findByIdAndUpdate(
     id,
-    { name, email, etype, hourlyRate, totalHour, total },
+    { name, email, etype, hourlyRate, totalHour, total, profileImage },
     function (err, data) {
       Employee.find({}, function (err, data) {
         if (err) throw err;

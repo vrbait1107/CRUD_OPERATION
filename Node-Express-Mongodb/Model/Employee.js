@@ -8,6 +8,7 @@ const Employee = new Schema({
   hourlyRate: Number,
   totalHour: Number,
   total: Number,
+  profileImage: String,
 });
 
 module.exports = mongoose.model("Employee", Employee);
