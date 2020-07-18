@@ -2,6 +2,7 @@ var router = express.Router();
 var express = require("express");
 const Employee = require("../Model/Employee");
 
+
 //----------------------->> HOME PAGE
 
 router.get("/", function (req, res, next) {
@@ -15,7 +16,7 @@ router.get("/", function (req, res, next) {
   });
 });
 
-// ----------------------->> SHOW RECORDS DETAILS
+//----------------------->> SHOW RECORDS DETAILS ON HOME PAGE
 
 router.post("/", function (req, res, next) {
   employee = new Employee();
@@ -39,7 +40,7 @@ router.post("/", function (req, res, next) {
   });
 });
 
-// ----------------------->> FILTER RECORDS
+//----------------------->> FILTER RECORDS
 
 router.post("/search/", function (req, res, next) {
   let filterEmail = req.body.filterEmail;
@@ -69,7 +70,7 @@ router.post("/search/", function (req, res, next) {
   });
 });
 
-// ------------------------->> DELETE REQUEST
+//----------------------->> DELETE REQUEST
 
 router.get("/delete/:id", function (req, res, next) {
   const id = req.params.id;
@@ -87,7 +88,7 @@ router.get("/delete/:id", function (req, res, next) {
   });
 });
 
-// ------------------------->> EDIT REQUEST
+//----------------------->> EDIT REQUEST
 
 router.get("/edit/:id", function (req, res, next) {
   const id = req.params.id;
@@ -97,7 +98,7 @@ router.get("/edit/:id", function (req, res, next) {
   });
 });
 
-// ------------------------->> UPDATE RECORDS
+//----------------------->> UPDATE RECORDS
 
 router.post("/update/", function (req, res, next) {
   let id = req.body.id;
