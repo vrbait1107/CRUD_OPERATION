@@ -1,7 +1,6 @@
-var router = express.Router();
 var express = require("express");
+var router = express.Router();
 const Employee = require("../Model/Employee");
-
 
 //----------------------->> HOME PAGE
 
@@ -36,36 +35,6 @@ router.post("/", function (req, res, next) {
         records: data,
         success: "Record Inserted Successfully",
       });
-    });
-  });
-});
-
-//----------------------->> FILTER RECORDS
-
-router.post("/search/", function (req, res, next) {
-  let filterEmail = req.body.filterEmail;
-  let filterName = req.body.filterName;
-
-  if (filterEmail !== "" && filterName !== "") {
-    var query = Employee.find({
-      $and: [{ name: filterName }, { email: filterEmail }],
-    });
-  } else if (filterEmail !== "" && filterName == "") {
-    var query = Employee.find({
-      email: filterEmail,
-    });
-  } else if (filterEmail == "" && filterName !== "") {
-    var query = Employee.find({
-      name: filterName,
-    });
-  }
-
-  query.exec(function (err, data) {
-    if (err) throw err;
-    res.render("index", {
-      title: "EMPLOYEE RECORDS",
-      records: data,
-      success: "",
     });
   });
 });

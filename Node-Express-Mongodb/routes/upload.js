@@ -1,7 +1,8 @@
+var express = require("express");
 var router = express.Router();
 const path = require("path");
 const multer = require("multer");
-var express = require("express");
+
 const UploadImages = require("../Model/UploadImages");
 
 //---------------------->> STATIC PATH
