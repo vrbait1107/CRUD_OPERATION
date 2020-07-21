@@ -18,6 +18,8 @@
 <body>
 
 <div id="responseAdd"></div>
+<div id="deleteResponse"></div>
+<div id="updateResponse"></div>
 
   <main class="container my-5">
     <div class="row">
@@ -26,13 +28,13 @@
         Add Employee
       </button>
 
-      <!-- Modal -->
+      <!-- Add Modal -->
       <div class="modal fade" id="employeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="employeeModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="employeeModalLabel">Add Employee</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -72,6 +74,67 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   <button type="submit" class="btn btn-primary">Add Employee</button>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+       <!-- Update Modal -->
+      <div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="updateEmployeeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="updateEmployeeModalLabel">Update Employee</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+
+              <form action="" method="post" id="updateEmployeeForm">
+
+                <div class="form-group">
+                  <label for="updateName">Name</label>
+                  <input type="text" name="updateName" id="updateName" class="form-control" placeholder="Enter Your Name">
+                </div>
+
+                <div class="form-group">
+                  <label for="updateEmail">Email</label>
+                  <input type="email" name="updateEmail" id="updateEmail" class="form-control" placeholder="Enter Your email">
+                </div>
+
+                <div class="form-group">
+                  <label for="updateEType">Employee Type</label>
+                  <select name="updateEtype" id="updateEtype" class="form-control">
+                    <option value="Supervisor">Supervisor</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="updateHourlyRate">Hourly Rate</label>
+                  <input type="text" name="updateHourlyRate" id="updateHourlyRate" class="form-control"
+                    placeholder="Enter Your Hourly Rate">
+                </div>
+
+                <div class="form-group">
+                  <label for="updateTotalHour">Total Hour</label>
+                  <input type="text" name="updateTotalHour" id="updateTotalHour" class="form-control"
+                    placeholder="Enter Your Total Hours">
+                </div>
+
+                <input type="hidden" name="hiddenId" id="hiddenId">
+
+                <div class="modal-footer">
+
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit"  id= "update" class="btn btn-primary">Update Employee</button>
                 </div>
 
               </form>
