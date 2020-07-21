@@ -21,17 +21,59 @@ if (isset($_POST["insert"])) {
 
     if ($result) {
         echo "<script>Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'Employee Data Inserted Successfully'
-            })</script>";
+            icon: 'success',
+            title: 'Success',
+            text: 'Employee Data Inserted Successfully'
+          })</script>";
 
     } else {
         echo "<script>Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'We failed to insert employee data'
-            })</script>";
+            icon: 'error',
+            title: 'Error',
+            text: 'We failed to insert employee data'
+          })</script>";
     }
 
+}
+
+if (isset($_POST["readData"])) {
+
+    $sql = "SELECT * FROM employee_information";
+    $result = $conn->prepare($sql);
+    $result->execute();
+
+    if ($result) {
+
+        $data = '<table class="table table-striped">
+        <thead>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Employee Type</th>
+        <th>Hourly Rate</th>
+        <th>Total Hour </th>
+        <th>Total</th>
+        </thead>
+        <tbody>';
+
+        if ($result->rowCount() > 0) {
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $data .= '<tr>
+                <td> ' . $row['name'] . '</td>
+                <td> ' . $row['email'] . '</td>
+                <td> ' . $row['etype'] . '</td>
+                <td> ' . $row['hourlyRate'] . '</td>
+                <td> ' . $row['totalHour'] . '</td>
+                <td> ' . $row['total'] . '</td>
+                </tr>';
+            }
+
+            $data .= '</tbody>
+            </table>';
+
+        } else {
+            $data .= '<td colspan="6">No Records Found</td>';
+        }
+    }
+
+    echo $data;
 }

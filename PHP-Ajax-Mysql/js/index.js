@@ -1,4 +1,27 @@
+let readRecords;
+
 $(document).ready(function () {
+  // Reading Records
+  readRecords = () => {
+    let readData = "readData";
+
+    $.ajax({
+      url: "ajaxHandlerPHP/ajaxIndex.php",
+      type: "post",
+      data: {
+        readData: readData,
+      },
+      success(data) {
+        $("#responseRecords").html(data);
+      },
+      error(err) {
+        alert(err);
+      },
+    });
+  };
+
+  readRecords();
+
   $("#employeeForm").on("submit", function (e) {
     e.preventDefault();
 

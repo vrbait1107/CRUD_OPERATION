@@ -80,7 +80,13 @@
           </div>
         </div>
       </div>
-      <section class="col-md-12">
+
+      <section class="col-md-12 mt-3">
+        <h3 class="text-center text-uppercase">Employee Records</h3>
+      <div class="table-responsive">
+      <!-- Response Records -->
+      <div id="responseRecords"></div>
+      </div>
       </section>
     </div>
   </main>
