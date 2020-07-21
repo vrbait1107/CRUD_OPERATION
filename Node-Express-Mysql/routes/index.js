@@ -43,12 +43,79 @@ router.post("/", function (req, res, next) {
     data
   ) {
     if (err) throw err;
+    // Find Query
     let sql = "SELECT * FROM employee_information";
     conn.query(sql, function (err, data) {
       if (err) throw err;
       res.render("index", {
         title: "Employee Management System",
         success: "Data Insered Succesfully",
+        records: data,
+      });
+    });
+  });
+});
+
+router.get("/delete/:id", function (req, res, next) {
+  let id = parseInt(req.params.id);
+
+  let sql = "DELETE FROM employee_information WHERE id = ?";
+  conn.query(sql, [id], function (err, data) {
+    if (err) throw err;
+    // Find Query
+    let sql = "SELECT * FROM employee_information";
+    conn.query(sql, function (err, data) {
+      if (err) throw err;
+      res.render("index", {
+        title: "Employee Management System",
+        success: "Data Deleted Succesfully",
+        records: data,
+      });
+    });
+  });
+});
+
+//---------------------->> EDIT
+
+router.get("/edit/:id", function (req, res, next) {
+  let id = parseInt(req.params.id);
+
+  let sql = "SELECT * FROM employee_information WHERE id = ?";
+
+  conn.query(sql, [id], function (err, data) {
+    if (err) throw err;
+
+    res.render("edit", {
+      title: "Edit Employee Information",
+      editData: data,
+      success: "",
+    });
+  });
+});
+
+router.post("/update", function (req, res, next) {
+  let name = req.body.name;
+  let email = req.body.email;
+  let etype = req.body.etype;
+  let hourlyRate = req.body.hourlyRate;
+  let totalHour = req.body.totalHour;
+  let total = parseInt(req.body.totalHour) * parseInt(req.body.hourlyRate);
+
+  let sql =
+    "UPDATE employee_information SET name = ?, email = ?, etype = ?, hourlyRate = ?, totalHour = ?, total = ?";
+
+  conn.query(sql, [name, email, etype, hourlyRate, totalHour, total], function (
+    err,
+    data
+  ) {
+    if (err) throw err;
+    // Find Query
+    let sql = "SELECT * FROM employee_information";
+    conn.query(sql, function (err, data) {
+      if (err) throw err;
+      res.render("index", {
+        title: "Employee Management System",
+        success: "Data Updated Succesfully",
         records: data,
       });
     });

@@ -7,6 +7,8 @@
   <!-- CSS only -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
 </head>
 
@@ -32,7 +34,7 @@
 
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" name="email" id="email" class="form-control" placeholder="Enter Your Name">
+              <input type="email" name="email" id="email" class="form-control" placeholder="Enter Your Email">
             </div>
 
             <div class="form-group">
@@ -44,12 +46,14 @@
 
             <div class="form-group">
               <label for="hourlyRate">Hourly Rate</label>
-              <input type="text" name="hourlyRate" id="hourlyRate" class="form-control" placeholder="Enter Your Name">
+              <input type="text" name="hourlyRate" id="hourlyRate" class="form-control"
+                placeholder="Enter Your Hourly Rate">
             </div>
 
             <div class="form-group">
               <label for="totalHour">Total Hour</label>
-              <input type="text" name="totalHour" id="totalHour" class="form-control" placeholder="Enter Your Name">
+              <input type="text" name="totalHour" id="totalHour" class="form-control"
+                placeholder="Enter Your Total Hour">
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -72,6 +76,8 @@
             <th>Hourly Rate</th>
             <th>Total Hour</th>
             <th>Total</th>
+            <th>Edit</th>
+            <th>Delete</th>
           </thead>
           <tbody>
 
@@ -85,6 +91,8 @@
               <td><%= row.hourlyRate %></td>
               <td><%= row.totalHour %></td>
               <td><%= row.total %></td>
+              <td><a class="btn btn-primary" href="/edit/<%= row.id %>"><i class="fa fa-pencil"></i></a></td>
+              <td><a class="btn btn-danger" href="/delete/<%= row.id %>"><i class="fa fa-trash-o"></i></a></td>
             </tr>
             <%  }) %>
             <% } else{ %>
