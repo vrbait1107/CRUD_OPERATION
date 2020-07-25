@@ -26,7 +26,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="employeeModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="employeeModalLabel">Add Employee</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -82,7 +82,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="updateEmployeeModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="updateEmployeeModalLabel">Update Employee</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -92,45 +92,45 @@
               <form action="/" method="post" id="updateEmployeeForm">
 
                 <div class="form-group">
-                  <label for="name">Name</label>
-                  <input type="text" name="name" id="name" class="form-control" placeholder="Enter Your Name">
+                  <label for="updateName">Name</label>
+                  <input type="text" name="updateName" id="updateName" class="form-control"
+                    placeholder="Enter Your Name">
                 </div>
 
                 <div class="form-group">
-                  <label for="email">Email</label>
-                  <input type="email" name="email" id="email" class="form-control" placeholder="Enter Your Email">
+                  <label for="updateEmail">Email</label>
+                  <input type="email" name="updateEmail" id="updateEmail" class="form-control"
+                    placeholder="Enter Your Email">
                 </div>
 
                 <div class="form-group">
-                  <label for="etype">Employee Type</label>
-                  <select name="etype" id="etype" class="form-control">
+                  <label for="updateEtype">Employee Type</label>
+                  <select name="updateEtype" id="updateEtype" class="form-control">
                     <option value="Supervisor">Supervisor</option>
                   </select>
                 </div>
 
                 <div class="form-group">
-                  <label for="hourlyRate">Hourly Rate</label>
-                  <input type="text" name="hourlyRate" id="hourlyRate" class="form-control"
+                  <label for="updateHourlyRate">Hourly Rate</label>
+                  <input type="text" name="updateHourlyRate" id="updateHourlyRate" class="form-control"
                     placeholder="Enter Your Hourly Rate">
                 </div>
 
                 <div class="form-group">
-                  <label for="totalHour">Total Hour</label>
-                  <input type="text" name="totalHour" id="totalHour" class="form-control"
+                  <label for="updateTotalHour">Total Hour</label>
+                  <input type="text" name="updateTotalHour" id="updateTotalHour" class="form-control"
                     placeholder="Enter Your Total Hour">
                 </div>
 
+                <input type="hidden" name="hiddenId" id="hiddenId">
+
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Add Employee</button>
+                  <button type="submit" class="btn btn-primary">Update Employee</button>
                 </div>
 
               </form>
 
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>
@@ -140,7 +140,7 @@
 
       <section class="col-md-12 mt-5">
 
-        <h3 class="text-center my-3"><%= title %></h3>
+        <h3 class="text-center mb-5"><%= title %></h3>
 
         <table class="table table-striped">
           <thead>
@@ -176,7 +176,7 @@
             read: read,
           },
           success(data) {
-            console.log(data);
+
             const tbody = $("tbody");
 
             tbody.html("");
@@ -188,7 +188,7 @@
               <td>${row.hourlyRate}</td>
               <td>${row.totalHour}</td>
               <td>${row.total}</td>
-              <td><button class="btn btn-primary" onclick="editEmployee(${row.id})"><i class="fa fa-trash-o"></i></button></td>
+              <td><button class="btn btn-primary" onclick="getEmployee(${row.id})"><i class="fa fa-pencil"></i></button></td>
               <td><button class="btn btn-danger" onclick="deleteEmployee(${row.id})"><i class="fa fa-trash-o"></i></button></td>
             </tr>`);
             });
@@ -276,6 +276,67 @@
       })
 
     };
+
+    const getEmployee = (id) => {
+      let editId = id;
+
+      $.ajax({
+        url: "/edit",
+        type: "post",
+        data: {
+          editId: editId,
+        },
+        success(data) {
+          let employee = data.employee[0];
+
+          $("#updateName").val(employee.name);
+          $("#updateEmail").val(employee.email);
+          $("#updateEtype").val(employee.etype);
+          $("#updateHourlyRate").val(employee.hourlyRate);
+          $("#updateTotalHour").val(employee.totalHour);
+          $("#hiddenId").val(employee.id);
+        },
+      });
+
+      $("#updateEmployeeModal").modal("show");
+    };
+
+    //----------------------->> UPDATE EMPLOYEE
+    $("#updateEmployeeForm").on("submit", function (e) {
+      e.preventDefault();
+
+      let hiddenId = $("#hiddenId").val();
+      let updateName = $("#updateName").val();
+      let updateEmail = $("#updateEmail").val();
+      let updateEtype = $("#updateEtype").val();
+      let updateHourlyRate = $("#updateHourlyRate").val();
+      let updateTotalHour = $("#updateTotalHour").val();
+      let updateTotal = parseInt(updateHourlyRate) * parseInt(updateTotalHour);
+
+      $.ajax({
+        url: "/update",
+        type: "post",
+        data: {
+          hiddenId: hiddenId,
+          updateName: updateName,
+          updateEmail: updateEmail,
+          updateEtype: updateEtype,
+          updateHourlyRate: updateHourlyRate,
+          updateTotalHour: updateTotalHour,
+          updateTotal: updateTotal,
+        },
+        success(data) {
+          $("#updateEmployeeModal").modal("hide");
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Data Updated Successfully!',
+          });
+          readRecord();
+        },
+      });
+    });
+
 
   </script>
 
