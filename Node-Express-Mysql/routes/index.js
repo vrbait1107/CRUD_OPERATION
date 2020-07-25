@@ -14,20 +14,19 @@ conn.connect(function (err) {
   console.log("Database Connected");
 });
 
-/* GET home page. */
 router.get("/", function (req, res, next) {
+  res.render("index", { title: "Employee Management", success: "" });
+});
+
+router.post("/read", function (req, res, next) {
   let sql = "SELECT * FROM employee_information";
   conn.query(sql, function (err, data) {
     if (err) throw err;
-    res.render("index", {
-      title: "Employee Management System",
-      success: "",
-      records: data,
-    });
+    res.send({ records: data });
   });
 });
 
-router.post("/", function (req, res, next) {
+router.post("/create", function (req, res, next) {
   let name = req.body.name;
   let email = req.body.email;
   let etype = req.body.etype;
@@ -43,35 +42,17 @@ router.post("/", function (req, res, next) {
     data
   ) {
     if (err) throw err;
-    // Find Query
-    let sql = "SELECT * FROM employee_information";
-    conn.query(sql, function (err, data) {
-      if (err) throw err;
-      res.render("index", {
-        title: "Employee Management System",
-        success: "Data Insered Succesfully",
-        records: data,
-      });
-    });
+    res.send("Data Inserted Successfully");
   });
 });
 
-router.get("/delete/:id", function (req, res, next) {
-  let id = parseInt(req.params.id);
+router.post("/delete", function (req, res, next) {
+  let id = req.body.deleteId;
 
   let sql = "DELETE FROM employee_information WHERE id = ?";
   conn.query(sql, [id], function (err, data) {
     if (err) throw err;
-    // Find Query
-    let sql = "SELECT * FROM employee_information";
-    conn.query(sql, function (err, data) {
-      if (err) throw err;
-      res.render("index", {
-        title: "Employee Management System",
-        success: "Data Deleted Succesfully",
-        records: data,
-      });
-    });
+    res.send("Data Deleted Successfully");
   });
 });
 
