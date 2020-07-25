@@ -118,18 +118,30 @@ $("#updateEmployeeForm").on("submit", function (e) {
 const deleteEmployee = (id) => {
   let deleteId = id;
 
-  $.ajax({
-    url: "ajaxHandlerPHP/ajaxIndex.php",
-    type: "post",
-    data: {
-      deleteId: deleteId,
-    },
-    success(data) {
-      $("#deleteResponse").html(data);
-      readRecords();
-    },
-    error(err) {
-      alert(err);
-    },
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.value) {
+      $.ajax({
+        url: "ajaxHandlerPHP/ajaxIndex.php",
+        type: "post",
+        data: {
+          deleteId: deleteId,
+        },
+        success(data) {
+          $("#deleteResponse").html(data);
+          readRecords();
+        },
+        error(err) {
+          alert(err);
+        },
+      });
+    }
   });
 };
