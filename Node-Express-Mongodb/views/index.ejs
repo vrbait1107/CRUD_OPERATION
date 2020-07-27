@@ -3,14 +3,10 @@
 
 <head>
   <title><%= title %></title>
-  <!-- Bootstrap -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <!-- Font-Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
-    crossorigin="anonymous" />
-  <link rel="stylesheet" href=" https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+
+  <!-- Including Header Scripts -->
+  <%- include("../public/includes/headerScripts.ejs") %>
+
 </head>
 
 <body class="my-5">
@@ -24,55 +20,99 @@
     </div>
     <% } %>
 
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#employeeModal">
+      Add Employee
+    </button>
 
-    <div class="row">
-      <section class="col-md-6 offset-md-3">
-        <form action="/" method="post">
-
-
-
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" class="form-control" placeholder="Enter Your Name">
+    <!-- Employee Modal -->
+    <div class="modal fade" id="employeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="employeeModalLabel">Add Employee</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
+          <div class="modal-body">
 
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" class="form-control" placeholder="Enter Your Name">
+            <form action="/" method="post">
+
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Enter Your Name">
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Enter Your Name">
+              </div>
+
+              <div class="form-group">
+                <label for="etype">Employee Type</label>
+                <select name="etype" id="etype" class="form-control">
+                  <option value="Supervisor">Supervisor</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="hourlyRate">Hourly Rate</label>
+                <input type="text" name="hourlyRate" id="hourlyRate" class="form-control" placeholder="Enter Your Name">
+              </div>
+
+              <div class="form-group">
+                <label for="totalHour">Total Hour</label>
+                <input type="text" name="totalHour" id="totalHour" class="form-control" placeholder="Enter Your Name">
+              </div>
+
+              <div class="form-group">
+                <label for="profileImage">Profile Image</label>
+                <input type="file" class="form-control-file" name="profileImage" id="profileImage">
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Add Employee</button>
+              </div>
+
+            </form>
+
           </div>
-
-          <div class="form-group">
-            <label for="etype">Employee Type</label>
-            <select name="etype" id="etype" class="form-control">
-              <option value="Supervisor">Supervisor</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="hourlyRate">Hourly Rate</label>
-            <input type="text" name="hourlyRate" id="hourlyRate" class="form-control" placeholder="Enter Your Name">
-          </div>
-
-          <div class="form-group">
-            <label for="totalHour">Total Hour</label>
-            <input type="text" name="totalHour" id="totalHour" class="form-control" placeholder="Enter Your Name">
-          </div>
-
-          <div class="form-group">
-            <label for="profileImage">Profile Image</label>
-            <input type="file" class="form-control-file" name="profileImage" id="profileImage">
-          </div>
-
-          <button type="submit" class="btn btn-primary">Submit</button>
-
-        </form>
-      </section>
+        </div>
+      </div>
     </div>
 
-    <h3 class="text-center my-5"><%= title %></h3>
+
+
+    <!-- Update Modal -->
+    <div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog"
+      aria-labelledby="updateEmployeeModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateEmployeeModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <h3 class="text-center mb-3"><%= title %></h3>
 
     <div class="row text-center">
-      <section class="col-md-10 offset-md-1">
+      <section class="col-md-12">
         <table class="table table-striped" id="dataTable">
           <thead>
             <tr>
@@ -88,60 +128,18 @@
             </tr>
           </thead>
           <tbody>
-            <% if(records.length > 0) { %>
-            <% records.forEach(function(row){ %>
-            <tr>
-              <% if(!row.profileImage){ %>
-              <td><img src="./profileImage/defaultUser.png" class="img-fluid rounded-circle" alt="Profile Image"></td>
-              <% }else { %>
-              <td><img src="./profileImage/<%= row.name %>" class="img-fluid" alt="Profile Image"></td>
-              <% } %>
-              <td><%= row.name %></td>
-              <td><%= row.email %></td>
-              <td><%= row.etype %></td>
-              <td><%= row.hourlyRate %></td>
-              <td><%= row.totalHour %></td>
-              <td><%= row.total %></td>
-              <td><a class="btn btn-primary text-white" href="/edit/<%= row._id %>"><i class="fas fa-edit"></i></a>
-              </td>
-              <td><a class="btn btn-danger text-white" href="/delete/<%= row._id %>"><i class="fas fa-trash"></i></a>
-              </td>
-            </tr>
-            <% })}else{ %>
-            <tr>
-              <td colspan="9">
-                No Records Found
-              </td>
-            </tr>
-            <% } %>
+
           </tbody>
         </table>
       </section>
     </div>
-
   </main>
 
-  <!-- JS, Popper.js, and jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-    crossorigin="anonymous"></script>
+  <!-- Including Header Scripts -->
+  <%- include("../public/includes/footerScripts.ejs") %>
 
-  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+  <script src="/ajax/ajax.js"></script>
 
-  <script>
-
-    $(document).ready(function () {
-      $('#dataTable').DataTable();
-    });
-
-  </script>
 </body>
 
 </html>

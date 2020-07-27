@@ -20,22 +20,27 @@ const upload = multer({
   storage: Storage,
 }).single("profileImage");
 
-//----------------------->> HOME PAGE
+//----------------------->> Read Operation
 
 router.get("/", function (req, res, next) {
-  Employee.find({}, function (err, data) {
-    if (err) throw err;
-    res.render("index", {
-      title: "EMPLOYEE RECORDS",
-      records: data,
-      success: "",
-    });
+  res.render("index", {
+    title: "EMPLOYEE RECORDS",
+    success: "",
   });
 });
 
-//----------------------->> SHOW RECORDS DETAILS ON HOME PAGE
+//----------------------->> Read Operation
 
-router.post("/", upload, function (req, res, next) {
+router.post("/read", function (req, res, next) {
+  Employee.find({}, function (err, data) {
+    if (err) throw err;
+    res.send({ records: data });
+  });
+});
+
+//----------------------->> Create Operation.
+
+router.post("/create", upload, function (req, res, next) {
   employee = new Employee();
   employee.name = req.body.name;
   employee.email = req.body.email;
@@ -45,16 +50,13 @@ router.post("/", upload, function (req, res, next) {
   employee.total = parseInt(req.body.totalHour) * parseInt(req.body.hourlyRate);
   employee.profileImage = req.file.filename;
 
-  employee.save(function (err, data1) {
+  if (employee.profileImage === "") {
+    employee.profileImage = "defaultUser.png";
+  }
+
+  employee.save(function (err, data) {
     if (err) throw err;
-    Employee.find({}, function (err, data) {
-      if (err) throw err;
-      res.render("index", {
-        title: "EMPLOYEE RECORDS",
-        records: data,
-        success: "Record Inserted Successfully",
-      });
-    });
+    res.send("Data Inserted Successfully");
   });
 });
 
