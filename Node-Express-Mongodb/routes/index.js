@@ -50,7 +50,7 @@ router.post("/create", upload, function (req, res, next) {
   employee.total = parseInt(req.body.totalHour) * parseInt(req.body.hourlyRate);
   employee.profileImage = req.file.filename;
 
-  if (employee.profileImage === "") {
+  if (!employee.profileImage) {
     employee.profileImage = "defaultUser.png";
   }
 
@@ -62,45 +62,38 @@ router.post("/create", upload, function (req, res, next) {
 
 //----------------------->> DELETE REQUEST
 
-router.get("/delete/:id", function (req, res, next) {
-  const id = req.params.id;
+router.post("/delete", function (req, res, next) {
+  const id = req.body.deleteId;
 
   Employee.findByIdAndDelete(id, function (err, data) {
     if (err) throw err;
-    Employee.find({}, function (err, data) {
-      if (err) throw err;
-      res.render("index", {
-        title: "EMPLOYEE RECORDS",
-        records: data,
-        success: "Successfully Record Deleted",
-      });
-    });
+    res.send("Data Successfully Deleted");
   });
 });
 
 //----------------------->> EDIT REQUEST
 
-router.get("/edit/:id", function (req, res, next) {
-  const id = req.params.id;
+router.post("/edit", function (req, res, next) {
+  const id = req.body.editId;
 
   Employee.findById(id, function (err, data) {
-    res.render("edit", { title: "Edit Employee Records", editData: data });
+    res.send({ employee: data });
   });
 });
 
 //----------------------->> UPDATE RECORDS
 
-router.post("/update/", upload, function (req, res, next) {
-  let id = req.body.id;
-  let name = req.body.name;
-  let email = req.body.email;
-  let etype = req.body.etype;
-  let hourlyRate = req.body.hourlyRate;
-  let totalHour = req.body.totalHour;
-  let total = parseInt(req.body.totalHour) * parseInt(req.body.hourlyRate);
+router.post("/update", upload, function (req, res, next) {
+  let id = req.body.hiddenId;
+  let name = req.body.updateName;
+  let email = req.body.updateEmail;
+  let etype = req.body.updateEtype;
+  let hourlyRate = req.body.updateHourlyRate;
+  let totalHour = req.body.updateTotalHour;
+  let total = parseInt(hourlyRate) * parseInt(totalHour);
   let profileImage = req.file.filename;
 
-  if (profileImage === "") {
+  if (!profileImage) {
     profileImage = "defaultUser.png";
   }
 
@@ -108,14 +101,7 @@ router.post("/update/", upload, function (req, res, next) {
     id,
     { name, email, etype, hourlyRate, totalHour, total, profileImage },
     function (err, data) {
-      Employee.find({}, function (err, data) {
-        if (err) throw err;
-        res.render("index", {
-          title: "EMPLOYEE RECORDS",
-          records: data,
-          success: "Record Successfully Updated",
-        });
-      });
+      res.send("Data updated Successfully");
     }
   );
 });
