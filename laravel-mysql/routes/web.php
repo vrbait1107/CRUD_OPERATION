@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ManageEmployee;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +19,8 @@ Route::get('/', function () {
 });
 
 Route::view('register', "register");
-
 Route::view("add", "addEmployee");
 
+Route::post("addEmployee", [ManageEmployee::class, "addEmployee"]);
 Route::post("login", [AuthController::class, "login"]);
 Route::post("register", [AuthController::class, "register"]);
