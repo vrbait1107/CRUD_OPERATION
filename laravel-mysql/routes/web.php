@@ -15,8 +15,12 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
-    return view('/login');
+    return view('login');
 });
+
+Route::view('register', "register");
+
+Route::view("add", "addEmployee");
 
 Route::post("login", [AuthController::class, "login"]);
 Route::post("register", [AuthController::class, "register"]);
