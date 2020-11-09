@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 
 class ManageEmployee extends Controller
 {
-    //
+    # CREATE OPERATION
+
     public function addEmployee(Request $req)
     {
 
@@ -29,10 +30,36 @@ class ManageEmployee extends Controller
         $employee->total = $req->hourlyRate * $req->totalHour;
 
         if ($employee->save()) {
-            return view("addEmployee", ["msg" => "Employee Successfully Saved"]);
+            return redirect("view");
         } else {
             return view("addEmployee", ["msg" => "Failed to Save Employee"]);
         }
 
     }
+
+    # READ OPERATION
+
+    public function viewEmployee()
+    {
+        $data = Employee::all();
+        return view("viewEmployee", ["data" => $data]);
+    }
+
+    # DELETE OPERATION
+
+    public function deleteEmployee($id)
+    {
+        $data = Employee::find($id);
+        $data->delete();
+        return redirect("view");
+    }
+
+    # EDIT OPERATION
+
+    public function editEmployee($id)
+    {
+        $data = Employee::find($id);
+        return view("EditEmployee", ["data" => $data]);
+    }
+
 }

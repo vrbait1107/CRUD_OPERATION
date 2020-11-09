@@ -5,7 +5,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h3 class="text-center card-header mb-3 text-uppercase">Login</h3>
+            <h3 class="text-center card-header mb-3 font-Staatliches text-uppercase">Login</h3>
 
             <form action="login" method="post">
 
@@ -24,6 +24,8 @@
                 </div>
 
                 <input type="submit" value="Login" class="btn btn-primary">
+
+                <p class="mt-3"> Don't Have an Account <a href="/register">Register Here</a></p>
 
             </form>
 

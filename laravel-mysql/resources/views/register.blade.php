@@ -32,7 +32,7 @@
                 <input type="submit" value="Register" class="btn btn-primary">
 
             </form>
-
+            <p class="mt-3"> Already Register <a href="/">Login Here</a></p>
         </div>
     </div>
 </div>
