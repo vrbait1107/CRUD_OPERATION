@@ -7,11 +7,15 @@
   <div class="row">
     <div class="col-md-6 offset-md-3">
 
-      <form action="editEmployee" method="post">
+      <form action="/updateEmployee" method="post">
 
         @csrf
 
         <h3 class="text-uppercase font-Staatliches card-header mb-3">Edit Employee</h3>
+
+         <div class="form-group">
+          <input type="hidden" name="id" id="id" class="form-control" value={{$data["id"]}}>
+        </div>
 
         <div class="form-group">
           <label for="name">Name</label>

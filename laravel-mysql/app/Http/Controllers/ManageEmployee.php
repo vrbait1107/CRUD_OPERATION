@@ -62,4 +62,31 @@ class ManageEmployee extends Controller
         return view("EditEmployee", ["data" => $data]);
     }
 
+    # UPDATE OPERATION
+
+    public function updateEmployee(Request $req)
+    {
+        $req->validate([
+            "name" => "required",
+            "email" => "required",
+            "etype" => "required",
+            "hourlyRate" => "required",
+            "totalHour" => "required",
+        ]);
+
+        $employee = Employee::find($req->id);
+        $employee->name = $req->name;
+        $employee->email = $req->email;
+        $employee->etype = $req->etype;
+        $employee->hourlyRate = $req->hourlyRate;
+        $employee->totalHour = $req->totalHour;
+        $employee->total = $req->hourlyRate * $req->totalHour;
+
+        if ($employee->save()) {
+            return redirect("view");
+        } else {
+            return view("addEmployee", ["msg" => "Failed to Save Employee"]);
+        }
+    }
+
 }

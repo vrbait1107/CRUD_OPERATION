@@ -34,7 +34,7 @@
             <td>{{$item["hourlyRate"]}}</td>
             <td>{{$item["totalHour"]}}</td>
             <td>{{$item["total"]}}</td>
-            <td class="text-primary"><a href= {{"edit/".$item['id']}}><i class="fas text-danger fas fa-pencil-alt"></i></a></td>
+            <td class="text-primary"><a href= {{"edit/".$item['id']}}><i class="fas text-primary fas fa-pencil-alt"></i></a></td>
             <td><a href= {{"delete/".$item['id']}}><i class="fas text-danger fa-trash-alt"></i></a></td>
             </tr>
         @endforeach
