@@ -7,6 +7,8 @@
     <div class="row">
         <div class="col-md-10 mt-5 offset-md-1">
 
+            <a href="/add" class="btn btn-primary">Add Employee</a>
+
             <h3 class="font-Staatliches text-center">Employee Data</h3>
 
             <table class="table text-center">

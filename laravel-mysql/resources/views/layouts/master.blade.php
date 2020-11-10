@@ -12,6 +12,8 @@
 </head>
 <body>
 
+    @include('navbar')
+
     @yield('content')
 
      <!-- jQuery and JS bundle w/ Popper.js -->

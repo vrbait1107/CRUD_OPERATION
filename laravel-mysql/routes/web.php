@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {
-    return view('login');
-});
-
 Route::view("add", "addEmployee");
 Route::get("/", [ManageEmployee::class, "viewEmployee"]);
 Route::get("delete/{id}", [ManageEmployee::class, "deleteEmployee"]);

@@ -20,6 +20,13 @@
     font-size: 35px;
 }
 
+.navbar-brand,
+nav li a {
+    font-family: "Staatliches", cursive !important;
+    font-size: 25px;
+    color: black !important;
+}
+
 .body {
     color: red;
 }
