@@ -18,14 +18,9 @@ Route::get('/', function () {
     return view('login');
 });
 
-# View
-Route::view('register', "register");
 Route::view("add", "addEmployee");
-
-Route::get("view", [ManageEmployee::class, "viewEmployee"]);
+Route::get("/", [ManageEmployee::class, "viewEmployee"]);
 Route::get("delete/{id}", [ManageEmployee::class, "deleteEmployee"]);
 Route::get("edit/{id}", [ManageEmployee::class, "editEmployee"]);
 Route::post("addEmployee", [ManageEmployee::class, "addEmployee"]);
 Route::post("updateEmployee", [ManageEmployee::class, "updateEmployee"]);
-Route::post("login", [AuthController::class, "login"]);
-Route::post("register", [AuthController::class, "register"]);
