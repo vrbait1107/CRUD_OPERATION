@@ -24,13 +24,19 @@
             <section class="col-md-12">
 
             <?php
-            if (!empty($session->getFlashdata("success"))):
-                echo "<p class='alert alert-success'>" . $session->getFlashdata("success") . "<p>";
-            endif;
-            ?>
-                        
+if (!empty($session->getFlashdata("success"))):
+    echo "<p class='alert alert-success'>" . $session->getFlashdata("success") . "<p>";
+endif;
+?>
+
+
+
                 <h3 class="card-header text-center mb-3 text-uppercase font-weight-bold"
                     style="font-family: 'Times New Roman', Times, serif;">View Employee</h3>
+
+                      <div class="text-right my-3">
+            <a href="<?php echo base_url("/add") ?>" class="btn btn-outline-primary">Add Employee</a>
+            </div>
 
                 <table class="table">
                     <thead>
@@ -45,35 +51,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                           <td scope="row">1</td>
-                            <td>Vishal Bait</td>
-                            <td>vishal@gmail.com</td>
-                            <td>1234567890</td>
-                            <td>At-Mahad, Tal- Mahad</td>
-                            <td><a class="btn btn-primary" href="/editEmployee">Edit</a></td>
-                            <td><a class="btn btn-danger" href="/editEmployee">Delete</a></td>
-                        </tr>
 
-                        <tr>
-                           <td scope="row">1</td>
-                            <td>Vishal Bait</td>
-                            <td>vishal@gmail.com</td>
-                            <td>1234567890</td>
-                            <td>At-Mahad, Tal- Mahad</td>
-                            <td><a class="btn btn-primary" href="/editEmployee">Edit</a></td>
-                            <td><a class="btn btn-danger" href="/editEmployee">Delete</a></td>
-                        </tr>
+<?php
 
-                         <tr>
-                           <td scope="row">1</td>
-                            <td>Vishal Bait</td>
-                            <td>vishal@gmail.com</td>
-                            <td>1234567890</td>
-                            <td>At-Mahad, Tal- Mahad</td>
-                            <td><a class="btn btn-primary" href="/editEmployee">Edit</a></td>
-                            <td><a class="btn btn-danger" href="/editEmployee">Delete</a></td>
-                        </tr>
+if (!empty($employees)):
+
+    foreach ($employees as $employee):
+
+    ?>
+						                        <tr>
+						                           <td scope="row"><?php echo $employee["id"] ?></td>
+						                            <td><?php echo $employee["name"] ?></td>
+						                            <td><?php echo $employee["email"] ?></td>
+						                            <td><?php echo $employee["mobileNumber"] ?></td>
+						                            <td><?php echo $employee["address"] ?></td>
+						                            <td><a class="btn btn-primary" href="/editEmployee">Edit</a></td>
+						                            <td><a class="btn btn-danger" href="/editEmployee">Delete</a></td>
+						                        </tr>
+						<?php
+endforeach;
+endif;
+?>
                     </tbody>
                 </table>
             </section>

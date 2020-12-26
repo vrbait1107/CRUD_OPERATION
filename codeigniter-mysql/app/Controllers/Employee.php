@@ -11,6 +11,10 @@ class Employee extends BaseController
     {
         $session = \Config\Services::session();
         $data["session"] = $session;
+
+        $model = new EmployeeModel();
+        $employeeArray = $model->getEmployee();
+        $data["employees"] = $employeeArray;
         return view("viewEmployee", $data);
     }
 
@@ -43,7 +47,7 @@ class Employee extends BaseController
 
                 $session->setFlashdata("success", "Record added successfully");
 
-                return redirect()->to("/view");
+                return redirect()->to("/");
 
             } else {
                 $data["validation"] = $this->validator;
