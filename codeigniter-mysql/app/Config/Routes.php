@@ -32,6 +32,8 @@ $routes->setAutoRoute(true);
 $routes->get('/add', 'Employee::add');
 $routes->get('/', 'Employee::view');
 $routes->post('/add', 'Employee::add');
+$routes->get('/edit/(:num)', 'Employee::edit/$1');
+$routes->get('/delete/(:num)', 'Employee::delete/$1');
 
 /**
  * --------------------------------------------------------------------

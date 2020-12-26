@@ -12,4 +12,9 @@ class EmployeeModel extends Model
     {
         return $this->orderBy("id", "ASC")->findAll();
     }
+
+    public function getRow($id)
+    {
+        return $this->where("id", $id)->first();
+    }
 }

@@ -27,6 +27,10 @@
 if (!empty($session->getFlashdata("success"))):
     echo "<p class='alert alert-success'>" . $session->getFlashdata("success") . "<p>";
 endif;
+
+if (!empty($session->getFlashdata("error"))):
+    echo "<p class='alert alert-danger'>" . $session->getFlashdata("error") . "<p>";
+endif;
 ?>
 
 
@@ -59,18 +63,19 @@ if (!empty($employees)):
     foreach ($employees as $employee):
 
     ?>
-						                        <tr>
-						                           <td scope="row"><?php echo $employee["id"] ?></td>
-						                            <td><?php echo $employee["name"] ?></td>
-						                            <td><?php echo $employee["email"] ?></td>
-						                            <td><?php echo $employee["mobileNumber"] ?></td>
-						                            <td><?php echo $employee["address"] ?></td>
-						                            <td><a class="btn btn-primary" href="/editEmployee">Edit</a></td>
-						                            <td><a class="btn btn-danger" href="/editEmployee">Delete</a></td>
-						                        </tr>
-						<?php
+																                        <tr>
+																                           <td scope="row"><?php echo $employee["id"] ?></td>
+																                            <td><?php echo $employee["name"] ?></td>
+																                            <td><?php echo $employee["email"] ?></td>
+																                            <td><?php echo $employee["mobileNumber"] ?></td>
+																                            <td><?php echo $employee["address"] ?></td>
+																                            <td><a class="btn btn-primary" href="/edit/<?php echo $employee["id"] ?>">Edit</a></td>
+																                            <td><a class="btn btn-danger" onclick= "deleteConfirm('<?php echo $employee['id'] ?>')">Delete</a></td>
+																                        </tr>
+																<?php
 endforeach;
 endif;
+
 ?>
                     </tbody>
                 </table>
@@ -80,6 +85,15 @@ endif;
 
     <!-- Include Footer Scripts -->
     <?php include_once "includes/footerScripts.php";?>
+
+     <script type="text/javascript">
+
+    const deleteConfirm = (id) => {
+       if(confirm("Are you sure you want to delete?")){
+        window.location.href= '<?php echo base_url('/delete') ?>/' + id;
+       }
+    }
+    </script>
 
 </body>
 
