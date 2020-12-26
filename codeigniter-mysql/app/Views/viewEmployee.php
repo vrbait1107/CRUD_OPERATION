@@ -23,6 +23,12 @@
         <div class="row">
             <section class="col-md-12">
 
+            <?php
+            if (!empty($session->getFlashdata("success"))):
+                echo "<p class='alert alert-success'>" . $session->getFlashdata("success") . "<p>";
+            endif;
+            ?>
+                        
                 <h3 class="card-header text-center mb-3 text-uppercase font-weight-bold"
                     style="font-family: 'Times New Roman', Times, serif;">View Employee</h3>
 

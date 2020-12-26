@@ -2,8 +2,18 @@
 
 namespace App\Controllers;
 
+use App\Models\EmployeeModel;
+
 class Employee extends BaseController
 {
+
+    public function view()
+    {
+        $session = \Config\Services::session();
+        $data["session"] = $session;
+        return view("viewEmployee", $data);
+    }
+
     public function add()
     {
         $session = \Config\Services::session();
@@ -15,13 +25,26 @@ class Employee extends BaseController
             $input = $this->validate([
                 "name" => "required|min_length[5]",
                 'email' => 'required|valid_email',
-                'mobileNumber' => 'required|length[10]',
+                'mobileNumber' => 'required|regex_match[/^[0-9]{10}$/]',
                 "address" => "required",
                 "gender" => "required",
             ]);
 
             if ($input == true) {
-                // Form Validated
+                $model = new EmployeeModel();
+
+                $model->save([
+                    "name" => $this->request->getPost("name"),
+                    "email" => $this->request->getPost("email"),
+                    "mobileNumber" => $this->request->getPost("mobileNumber"),
+                    "address" => $this->request->getPost("address"),
+                    "gender" => $this->request->getPost("gender"),
+                ]);
+
+                $session->setFlashdata("success", "Record added successfully");
+
+                return redirect()->to("/view");
+
             } else {
                 $data["validation"] = $this->validator;
             }
@@ -33,11 +56,6 @@ class Employee extends BaseController
     public function edit()
     {
         return view("editEmployee");
-    }
-
-    public function view()
-    {
-        return view("viewEmployee");
     }
 
 }
