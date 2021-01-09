@@ -4,6 +4,7 @@
 2. Node-Express-Mysql CRUD Operation.
 3. PHP-Ajax-Mysql CRUD Operation.
 4. Laravel-Mysql CRUD Operation.
+5. Codeigniter-Mysql CRUD Operation.
 
 ## License
 
