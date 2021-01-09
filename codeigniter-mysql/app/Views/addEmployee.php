@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crud Operaton | Add User</title>
+    <title>Crud Operaton | Add Employee</title>
 
     <!-- Include Header Scripts -->
     <?php include_once "includes/headerScripts.php";?>
@@ -26,11 +26,12 @@
                 <h3 class="card-header text-center mb-3 text-uppercase font-weight-bold"
                     style="font-family: 'Times New Roman', Times, serif;">Add Employee</h3>
 
-                <form name ="addEmployeeForm" method="post" id="addEmployeeForm">
+                <form name="addEmployeeForm" method="post" id="addEmployeeForm">
 
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter Employee Name" value="<?php echo set_value('name') ?>">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter Employee Name"
+                            value="<?php echo set_value('name') ?>">
                         <span class="text-danger"><?php if (isset($validation) && $validation->hasError('name')) {
     echo "* " . $validation->getError('name');}?></span>
                     </div>
@@ -39,7 +40,7 @@
                         <label for="name">Email</label>
                         <input type="text" name="email" id="email" class="form-control"
                             placeholder="Enter Employee Email" value="<?php echo set_value('email') ?>">
-                            <span class="text-danger"><?php if (isset($validation) && $validation->hasError('email')) {
+                        <span class="text-danger"><?php if (isset($validation) && $validation->hasError('email')) {
     echo "* " . $validation->getError('email');}?></span>
                     </div>
 
@@ -47,7 +48,7 @@
                         <label for="name">Mobile Number</label>
                         <input type="text" name="mobileNumber" id="mobileNumber" class="form-control"
                             placeholder="Enter Employee Email" value="<?php echo set_value('mobileNumber') ?>">
-                            <span class="text-danger"><?php if (isset($validation) && $validation->hasError('mobileNumber')) {
+                        <span class="text-danger"><?php if (isset($validation) && $validation->hasError('mobileNumber')) {
     echo "* " . $validation->getError('mobileNumber');}?></span>
                     </div>
 
@@ -55,7 +56,7 @@
                         <label for="address">Address</label>
                         <textarea class="form-control" name="address" id="address" rows="3"
                             placeholder="Enter Employee Address" value="<?php echo set_value('address') ?>"></textarea>
-                            <span class="text-danger"><?php if (isset($validation) && $validation->hasError('address')) {
+                        <span class="text-danger"><?php if (isset($validation) && $validation->hasError('address')) {
     echo "* " . $validation->getError('address');}?></span>
                     </div>
 
@@ -82,7 +83,7 @@
                                 Other
                             </label>
                         </div>
-                          <div class="text-danger"><?php if (isset($validation) && $validation->hasError('gender')) {
+                        <div class="text-danger"><?php if (isset($validation) && $validation->hasError('gender')) {
     echo "* " . $validation->getError('gender');}?></div>
                     </div>
 

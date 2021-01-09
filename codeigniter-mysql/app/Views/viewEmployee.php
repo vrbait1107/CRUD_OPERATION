@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crud Operaton | View Employee</title>
+    <title>Crud Operaton | View Employees</title>
 
     <!-- Include Header Scripts -->
     <?php include_once "includes/headerScripts.php";?>
@@ -56,26 +56,25 @@ endif;
                     </thead>
                     <tbody>
 
-<?php
+                                <?php
 
 if (!empty($employees)):
-
     foreach ($employees as $employee):
 
     ?>
-																                        <tr>
-																                           <td scope="row"><?php echo $employee["id"] ?></td>
-																                            <td><?php echo $employee["name"] ?></td>
-																                            <td><?php echo $employee["email"] ?></td>
-																                            <td><?php echo $employee["mobileNumber"] ?></td>
-																                            <td><?php echo $employee["address"] ?></td>
-																                            <td><a class="btn btn-primary" href="/edit/<?php echo $employee["id"] ?>">Edit</a></td>
-																                            <td><a class="btn btn-danger" onclick= "deleteConfirm('<?php echo $employee['id'] ?>')">Delete</a></td>
-																                        </tr>
-																<?php
+											<tr>
+												<td scope="row"><?php echo $employee["id"] ?></td>
+												<td><?php echo $employee["name"] ?></td>
+											    <td><?php echo $employee["email"] ?></td>
+												<td><?php echo $employee["mobileNumber"] ?></td>
+												<td><?php echo $employee["address"] ?></td>
+												<td><a class="btn btn-primary" href="/edit/<?php echo $employee["id"] ?>">Edit</a></td>
+												<td><a class="btn btn-danger" onclick= "deleteConfirm('<?php echo $employee['id'] ?>')">Delete</a></td>
+		                                    </tr>
+
+											<?php
 endforeach;
 endif;
-
 ?>
                     </tbody>
                 </table>

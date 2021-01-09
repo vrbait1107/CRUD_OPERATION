@@ -94,7 +94,7 @@ class Employee extends BaseController
                     "gender" => $this->request->getPost("gender"),
                 ]);
 
-                $session->setFlashdata("success", "Record added successfully");
+                $session->setFlashdata("success", "Record Updated successfully");
 
                 return redirect()->to("/");
 
