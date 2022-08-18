@@ -29,7 +29,7 @@ class StudentController extends Controller
             'email' => 'required|email|unique:students,email|max:50',
         ]);
 
-        $data['uuid'] = UuidUuid::uuid4();
+        $data['uuid'] = UuidUuid::uuid4()->toString();
 
         # Avoid Cross Site Scripting Attacks
         foreach ($data as $key => $value) {
