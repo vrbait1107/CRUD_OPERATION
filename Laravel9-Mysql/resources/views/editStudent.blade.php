@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <label for="first_name">First Name</label>
                         <input type="text" name="first_name" id="first_name" class="form-control"
-                            value='{{ $student['first_name'] }}' placeholder="Enter Your First Name">
+                            value='{{ old('first_name') ?? $student['first_name'] }}' placeholder="Enter Your First Name">
 
                         @error('first_name')
                             <small class="text-danger">
@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <label for="last_name">Last Name</label>
                         <input type="text" name="last_name" id="last_name" class="form-control"
-                            value='{{ $student['last_name'] }}' placeholder="Enter Your Last Name">
+                            value='{{ old('last_name') ?? $student['last_name'] }}' placeholder="Enter Your Last Name">
                         @error('last_name')
                             <small class="text-danger">
                                 {{ $message }}
@@ -41,7 +41,7 @@
                     <div class="form-group">
                         <label for="school_name">School Name</label>
                         <input type="text" name="school_name" id="school_name" class="form-control"
-                            placeholder="Enter Your School Name" value='{{ $student['school_name'] }}'>
+                            placeholder="Enter Your School Name" value='{{ old('school_name') ?? $student['school_name'] }}'>
                         @error('school_name')
                             <small class="text-danger">
                                 {{ $message }}
@@ -52,7 +52,7 @@
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="text" name="email" id="email" class="form-control"
-                            placeholder="Enter Your Email" value='{{ $student['email'] }}'>
+                            placeholder="Enter Your Email" value='{{ old('email') ?? $student['email'] }}'>
                         @error('email')
                             <small class="text-danger">
                                 {{ $message }}
@@ -63,7 +63,7 @@
                     <div class="form-group">
                         <label for="age">Age</label>
                         <input type="text" name="age" id="age" class="form-control"
-                            placeholder="Enter Your Age" value='{{ $student['age'] }}'>
+                            placeholder="Enter Your Age" value='{{ old('age') ?? $student['age'] }}'>
                         @error('age')
                             <small class="text-danger">
                                 {{ $message }}
@@ -71,7 +71,7 @@
                         @enderror
                     </div>
 
-                    <input type="hidden" name="hiddenId" value='{{ $student['id'] }}'>
+                    <input type="hidden" name="hiddenId" value='{{ $student['uuid'] }}'>
 
                     <button type="submit" title="Update" class="btn btn-primary">Update</button>
                     <a type="button" href={{ route('home') }} class="btn btn-danger">Back</a>

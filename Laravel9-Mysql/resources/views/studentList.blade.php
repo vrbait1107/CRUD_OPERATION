@@ -49,11 +49,11 @@
                                     <td>{{ $student['age'] }}</td>
                                     <td>{{ $student['email'] }}</td>
                                     <td>
-                                        <a class="btn btn-primary" href='{{ route('edit', $student['id']) }}'>
+                                        <a class="btn btn-primary" href='{{ route('edit', $student['uuid']) }}'>
                                             <i class="fas fa-pencil-alt"></i></a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-danger" href='{{ route('delete', $student['id']) }}'>
+                                        <a class="btn btn-danger" href='{{ route('delete', $student['uuid']) }}'>
                                             <i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>

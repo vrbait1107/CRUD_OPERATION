@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::view("add", "addStudent")->name('add');
 Route::get("/", [StudentController::class, "read"])->name('home');
-Route::get("edit/{id}", [StudentController::class, "edit"])->name('edit')->whereNumber('id');
+Route::get("edit/{uuid}", [StudentController::class, "edit"])->name('edit')->whereUuid('uuid');
 Route::post("create", [StudentController::class, "create"])->name('create');
 Route::put("update", [StudentController::class, "update"])->name('update');
-Route::get("delete/{id}", [StudentController::class, "delete"])->name('delete')->whereNumber('id');
+Route::get("delete/{uuid}", [StudentController::class, "delete"])->name('delete')->whereUuid('uuid');
 

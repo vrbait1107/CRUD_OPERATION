@@ -26,6 +26,7 @@ class StudentSeeder extends Seeder
             'email' => $faker->safeEmail,
             'created_at' => now(),
             'updated_at' => now(),
+            'uuid' => $faker->uuid()
         ]);
     }
 }
